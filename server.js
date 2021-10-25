@@ -16,6 +16,7 @@ app.use(cookieParser());
 app.use('/api/auth',require('./routes/authOTP'));
 app.use('/api/Cart' , require('./routes/Cart'));
 app.use('/api/update' , require('./routes/userUpdate'));
+app.use('/api/items',require('./routes/Items'));
 
 
     
