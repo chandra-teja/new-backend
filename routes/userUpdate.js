@@ -42,14 +42,15 @@ router.put('/updateDetails'  , fetchUser , (req,res)=>{
 
 try{
     let user = req.user ;
-    const {firstname , lastname , address} = req.body ;
+    const {firstname , lastname , address, image} = req.body ;
     const userID = user.id ;
     const username = firstname + " "+lastname ;
     const useraddress = address;
+    const userimage = image;
     // console.log(userID);
-    console.log(firstname+" "+lastname + " " + useraddress);
+    console.log(firstname+" "+lastname + " " + useraddress + " " + userimage);
 
-    user = User.findByIdAndUpdate(userID , {name : username , address : useraddress} , function(err,docs){
+    user = User.findByIdAndUpdate(userID , {name : username , address : useraddress , image : userimage} , function(err,docs){
 
         if(err){
             console.log(err);
