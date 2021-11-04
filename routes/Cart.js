@@ -156,7 +156,6 @@ router.put("/deleteItem", async (req, res) => {
 router.delete("/clearCart", async (req, res) => {
   try {
     let userId;
-    let itemId = req.body.itemID;
     const authToken = req.header("authToken");
 
     if (!authToken) {
@@ -177,9 +176,7 @@ router.delete("/clearCart", async (req, res) => {
 
     // console.log(userId);
     if (userId) {
-      let itemdetails = await Cart.findById(itemId);
-
-      itemdetails = await Cart.deleteMany({ user : userId});
+      const newCart = await Cart.deleteMany({ user: userId });
 
       res.status(200).json({ success: true, message: "Items cleared in cart" });
     }
@@ -187,6 +184,5 @@ router.delete("/clearCart", async (req, res) => {
     console.log(err.message);
   }
 });
-
 
 module.exports = router;
