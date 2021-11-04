@@ -152,4 +152,41 @@ router.put("/deleteItem", async (req, res) => {
   }
 });
 
+//Clear all Items in cart
+router.delete("/clearCart", async (req, res) => {
+  try {
+    let userId;
+    let itemId = req.body.itemID;
+    const authToken = req.header("authToken");
+
+    if (!authToken) {
+      res.status(401).json({ sucess: false, message: "Unvalid user" });
+      return;
+    }
+    try {
+      const data = await jwt.verify(authToken, JWT_AUTH_TOKEN);
+      // console.log(data);
+      userId = data.user.id;
+    } catch (error) {
+      console.log(error.message);
+      res.status(401).json({
+        sucess: false,
+        message: " Unvalid user with wrong credentails",
+      });
+    }
+
+    // console.log(userId);
+    if (userId) {
+      let itemdetails = await Cart.findById(itemId);
+
+      itemdetails = await Cart.deleteMany({ user : userId});
+
+      res.status(200).json({ success: true, message: "Items cleared in cart" });
+    }
+  } catch (err) {
+    console.log(err.message);
+  }
+});
+
+
 module.exports = router;
