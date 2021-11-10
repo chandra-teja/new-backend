@@ -9,7 +9,7 @@ const UserSchema = new Schema({
 
   image: {  type: String },
 
-  orderCount: { type: Number },
+  orderCount: { type: Number,default : 0 },
   
   logout: { type: Boolean },
 

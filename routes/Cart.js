@@ -27,12 +27,14 @@ router.post("/updateOrder/inc", fetchUser, async (req, res) => {
   try {
     const userId = req.user.id;
 
-    const oldItem = await Cart.find({
-      user: userId,
-      name: req.body.name,
-    }).count();
+    
 
     if (userId) {
+
+      const oldItem = await Cart.find({
+        user: userId,
+        name: req.body.name,
+      }).count();
       if (oldItem) {
         const cartItem = await Cart.updateOne(
           { user: userId, name: req.body.name },
