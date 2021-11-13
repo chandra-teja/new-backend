@@ -10,13 +10,13 @@ const axios = require('axios');
 require("dotenv").config(); 
 
 
-// Enviourment variables
+
 
 const API_KEY = process.env.API_KEY ;
 const HOST_NAME = process.env.HOST_NAME;
 const JWT_AUTH_TOKEN = process.env.JWT_AUTH_TOKEN;
 const JWT_REFRESH_TOKEN = process.env.JWT_REFRESH_TOKEN;
-// const HOST_NAME = process.env.HOST_NAME;
+
 
 
 
@@ -93,8 +93,7 @@ router.post('/login/verify',async (req,res)=>{
 
             res
               .status(200)
-              .json({success : true , message : "Device verified" , AuthToken :authToken});
-            
+              .json({success : true , message : "Device verified" , AuthToken :authToken}) ;         
 
           
             }

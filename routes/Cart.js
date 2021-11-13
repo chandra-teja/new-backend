@@ -1,7 +1,7 @@
 const express = require("express");
 const fetchUser = require("../middlewares/fetchuser");
 const User = require("../models/User");
-const Cart = require("../models/Cart");
+const Cart = require("../models/CartItem");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
@@ -22,13 +22,32 @@ router.get("/getCartItems", fetchUser, async (req, res) => {
   }
 });
 
+
+router.post("/addtoCart", fetchUser , async (req, res) => {
+  try {
+    const userId = req.user.id;
+ 
+    if(userId){
+      const newItem = await Cart.create({
+      user: userId,
+      name: req.body.name,
+      amount: req.body.amount,
+      quantity: req.body.quantity,
+    });
+   
+    return res.status(200).json({ message: "Item added to cart" });       
+   }
+  } 
+  catch (err) {
+    res.status(401).json({err , message : "failed to add to cart"});
+  }
+});
+
 // Increase order count ;
 router.post("/updateOrder/inc", fetchUser, async (req, res) => {
   try {
     const userId = req.user.id;
-
     
-
     if (userId) {
 
       const oldItem = await Cart.find({
@@ -179,7 +198,6 @@ router.delete("/clearCart", async (req, res) => {
     // console.log(userId);
     if (userId) {
       const newCart = await Cart.deleteMany({ user: userId });
-
       res.status(200).json({ success: true, message: "Items cleared in cart" });
     }
   } catch (err) {

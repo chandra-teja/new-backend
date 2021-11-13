@@ -1,17 +1,23 @@
-require('dotenv').config();
 const express = require('express');
 const connectTomongo = require('./db.js');
 const app =  express();
-const port = process.env.PORT || 5000 ;
+const path = require('path');
+const port = process.env.PORT || 3000 ;
 require('./prod')(app);
 const cors = require('cors');
 const cookieParser = require("cookie-parser");
 
- // Your Auth Token from www.twilio.com/console
-app.use(cors({ origin: "*"}));
+
+require("dotenv").config();
+
+app.use(cors({ 
+    origin: "*",
+}));
 
 app.use(express.json());
 app.use(cookieParser());
+
+app.use( express.static(path.join(__dirname , 'uploads')));
 
 app.use('/api/auth',require('./routes/authOTP'));
 app.use('/api/Cart' , require('./routes/Cart'));
@@ -20,9 +26,11 @@ app.use('/api/items',require('./routes/Items'));
 
 
     
- connectTomongo();
+connectTomongo();
 app.get('/',(req,res)=>{
-    res.send("<h1>Hello Licious lite</h1>");
+    res.send(
+      `<div><h1>Hello Licious lite  </h1> sjs <img  src = "/myimage.png"/> </div>`
+    );
 })
 
 

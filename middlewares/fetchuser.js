@@ -12,7 +12,6 @@ const fetchUser = async(req,res,next)=>{
     }
     try{
     const data =  await jwt.verify(req.header('authToken') , JWT_AUTH_TOKEN);
-    // console.log(data);
     req.user = data.user ;
     next();
     
