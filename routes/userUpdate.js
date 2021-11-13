@@ -126,11 +126,7 @@ router.post("/orderCount", async (req, res) => {
     if (userId) {
       const newCart = await User.findByIdAndUpdate(userId,{ $inc : {orderCount : 1}});
       console.log(" new cart data " );
-      // newCart.then((res)=>{
-      //   console.log(res);
-      // })
-       const user = await User.findById(userId)
-       console.log(user);
+      
       return res.status(200).json({ success: true, message: "Order Count inreased" });
     }
   } catch (err) {
