@@ -2,7 +2,7 @@
 Backend of pwa app written with Node,express &amp; Mongo DB. you can find Frontend [here](https://github.com/chandra-teja/ProjectPwa).
 
 # Deployment
-Backend is deployed on [heroku](https://www.heroku.com/what) hosting platform using heroku CLI.
+Backend is deployed on [heroku](https://www.heroku.com/what) hosting platform using heroku CLI. We used [helmet](https://www.npmjs.com/package/helmet) to secure our app.
 
 # Getting Started
 download zip file or clone the repo and install node modules in root folder.
